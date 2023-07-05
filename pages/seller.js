@@ -26,14 +26,17 @@ const uitest = () => {
 
   const [fileList, setFileList] = useState([]);
 
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
   return (
     <>
       <Button variant="contained" onClick={() => setRegisterDialogOpen(true)}>등록</Button>
-      <Button 
+      <Button
         sx={{marginLeft: 1}}
         variant="outlined"
         onClick={() => {
-          fetch('http://localhost:8080/list')
+          fetch('http://localhost:8000/api/content/list')
             .then((res) => res.json())
             .then((data) => setFileList(data))
             .catch((error) => console.log(error))
@@ -48,12 +51,13 @@ const uitest = () => {
               style={{
                 cursor: 'pointer',
               }}
-              src={`http://localhost:8080/files/${file.image}`}
-              alt={file.image}
+              src={file.imgPath}
+              alt={file.title}
               loading="lazy"
             />
             <ImageListItemBar
-              title={file.pdf}
+              title={file.title}
+              subtitle={file.description}
               position="below"
             />
           </ImageListItem>
@@ -64,12 +68,38 @@ const uitest = () => {
         <DialogTitle>등록</DialogTitle>
         <DialogContent>
           <Input
+            sx={{
+              display: 'block',
+            }}
+            type='text'
+            placeholder='title'
+            onChange={(event) => {
+              setTitle(event.target.value);
+            }}
+          />
+          <Input
+            sx={{
+              display: 'block',
+            }}
+            type='text'
+            placeholder='description'
+            onChange={(event) => {
+              setDescription(event.target.value);
+            }}
+          />
+          <Input
+            sx={{
+              display: 'block',
+            }}
             type='file'
             onChange={(event) => {
               setImageFile(event.target.files[0]);
             }}
           />
           <Input
+            sx={{
+              display: 'block',
+            }}
             type='file'
             onChange={(event) => {
               setPdfFile(event.target.files[0]);
@@ -83,16 +113,19 @@ const uitest = () => {
               setRegisterDialogOpen(false);
 
               const formData = new FormData();
-              formData.append('image', imageFile);
+              formData.append('title', title);
+              formData.append('description', description);
+              formData.append('img', imageFile);
               formData.append('pdf', pdfFile);
 
-              fetch('http://localhost:8080/register', {
+              fetch('http://localhost:8000/api/content/publish', {
                 method: 'POST',
                 body: formData,
               })
                 .then(response => response.json())
                 .then(data => {
                   console.log(data);
+                  setFileList([data, ...fileList]);
                 })
                 .catch(error => {
                   console.error(error);
