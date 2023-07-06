@@ -18,7 +18,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import Input from '@mui/material/Input';
 
-const uitest = () => {
+const seller = () => {
   const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
 
   const [imageFile, setImageFile] = useState(null);
@@ -140,4 +140,4 @@ const uitest = () => {
   )
 }
 
-export default uitest;
+export default seller;
