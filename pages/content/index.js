@@ -2,8 +2,8 @@ import { Button, Card, CardContent, Dialog, Grid, IconButton, Typography, useThe
 import { RefreshOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import ContentThumbnail from "@/views/content/thumbnail";
-import { getContentList } from "@/utils/api/content";
 import ContentPublish from "@/views/content/publish";
+import { getContentList } from "@/utils/content/api";
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Content = () => {
@@ -53,7 +53,7 @@ const Content = () => {
           Publish Content
         </Button>
         <Button variant='contained' onClick={() => {
-          
+
         }}>
           Publish Content Test
         </Button>

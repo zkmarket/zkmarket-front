@@ -1,8 +1,9 @@
 import FileInput from "@/components/FileInput"
-import TextArea from "@/components/TextArea"
-import { publishContent } from "@/utils/api/content"
+import { publishContent } from "@/utils/content/api"
 import { Card, CardContent, CardActions, Typography, Button, TextField, InputAdornment, TextareaAutosize } from "@mui/material"
 import { useState } from "react"
+
+const DESCRIPTION_LIMIT = 5000
 
 const ContentPublish = ({ onPublished, onCanceled }) => {
   const [title, setTitle] = useState('')
@@ -20,7 +21,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
 
   return (
     <>
-      <Card sx={{ minWidth: 400 }} elevation={0}>
+      <Card sx={{ minWidth: 600 }} elevation={0}>
         <CardContent>
           <Typography variant="h5">
             PUBLISH CONTENT
@@ -40,14 +41,23 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <TextArea
+          <TextField
             required
-            id="descriptoion"
-            ariaLabel="Description"
-            placeholder="Description"
+            id="description"
+            label="Description"
             size="small"
+            multiline
+            rows={15}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            inputProps={{ maxLength: DESCRIPTION_LIMIT }}
+            helperText={`${description.length}/${DESCRIPTION_LIMIT}`}
+            FormHelperTextProps={{
+              style: {
+                marginLeft: 'auto',
+                fontSize: 12,
+              },
+            }}
           />
           <TextField
             fullWidth
