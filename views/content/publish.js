@@ -17,7 +17,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
   const handlePublish = async () => {
     console.log(pdf)
     // await publishContent(title, description, date, price, img, pdf)
-    window.location.href = 'zkmarket://' + title + '/' + description + '/' + author??'none' 
+    window.location.href = 'zkmarket://register/' + title + '/' + description + '/' + author??'none' 
     onPublished()
   }
 
@@ -82,14 +82,14 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          {/* <FileInput
+          <FileInput
             onChange={(e) => setImg(e.target.value)}
             accept='image/*'
             label='Content Image' />
           <FileInput
             onChange={(e) => setPdf(e.target.value)}
             accept='.txt'
-            label='Content TEXT' /> */}
+            label='Content TEXT' />
         </CardContent>
         <CardActions sx={{
           display: "flex",
