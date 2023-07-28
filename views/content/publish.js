@@ -1,8 +1,9 @@
 import FileInput from "@/components/FileInput"
 import { publishContent } from "@/utils/content/api"
-import { Card, CardContent, CardActions, Typography, Button, TextField, useTheme } from "@mui/material"
-import { useState } from "react"
+import { Card, CardContent, CardActions, Typography, Button, TextField, useTheme, TextareaAutosize } from "@mui/material"
+import { useState, useEffect } from "react"
 import useMediaQuery from '@mui/material/useMediaQuery';
+
 
 const TEXT_LIMIT = 5000
 
@@ -19,8 +20,8 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
   const handlePublish = async () => {
     console.log(pdf)
     // await publishContent(title, description, date, price, img, pdf)
-    window.location.href = 'zkmarket://register/' + title + '/' + description + '/' + author??'none' 
-    await publishContent(title, description, plainText, fee, date, img)
+    // window.location.href = 'zkmarket://register/' + title + '/' + description + '/' + author??'none' 
+    // await publishContent(title, description, plainText, fee, date, img)
     onPublished()
   }
 
@@ -62,7 +63,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
-            <TextareaAutosize
+            {/* <TextareaAutosize
               required
               fullWidth
               minRows={7}
@@ -72,7 +73,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
               size="small"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            />
+            /> */}
           <TextField
             required
             fullWidth

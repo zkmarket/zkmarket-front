@@ -1,5 +1,6 @@
 import { Button, Card, CardContent, CardMedia, Grow, Typography } from "@mui/material";
 import { useState } from "react";
+import { ethers, utils } from "ethers";
 
 const ContentThumbnail = ({ content }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -53,7 +54,7 @@ const ContentThumbnail = ({ content }) => {
           }}>
           {content.title}
           <Typography noWrap={true} align="right" variant="h5">
-            {content.fee} wei
+            {(Number(content.fee)/ Number('1000000000000000000')).toFixed(2)}  KLAY
           </Typography>
         </CardContent>
         <CardContent
