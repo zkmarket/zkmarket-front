@@ -25,7 +25,8 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
       <Card sx={{
         width: useMediaQuery(theme.breakpoints.down('sm')) ? '100%' : '50vw',
         maxWidth: '640px',
-        minWidth: useMediaQuery(theme.breakpoints.down('sm')) ? '' : '480px'
+        minWidth: useMediaQuery(theme.breakpoints.down('sm')) ? '' : '480px',
+        overflow: 'scroll'
       }} elevation={0}>
         <CardContent>
           <Typography variant="h5">
