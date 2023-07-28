@@ -9,14 +9,14 @@ export const getContentList = async (page, page_size) => {
   return result;
 }
 
-export const publishContent = async (title, description, date, price, img, pdf) => {
+export const publishContent = async (title, description, text, fee, date, img) => {
   let formData = new FormData();
   formData.set('title', title);
   formData.set('description', description);
+  formData.set('plain_text', text);
+  formData.set('fee', fee);
   if (date) formData.set('date', date);
-  if (price) formData.set('price', price);
   if (img) formData.set('img', img);
-  if (pdf) formData.set('pdf', pdf);
 
   const result = await requestAPI(
     "POST",

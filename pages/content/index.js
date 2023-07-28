@@ -52,11 +52,11 @@ const Content = () => {
         <Button variant='contained' onClick={() => setShowModal(true)}>
           Publish Content
         </Button>
-        <Button variant='contained' onClick={() => {
+        {/* <Button variant='contained' onClick={() => {
 
         }}>
           Publish Content Test
-        </Button>
+        </Button> */}
       </Grid >
       {
         contentList.length
@@ -92,6 +92,7 @@ const Content = () => {
           </Card>
       }
       <Dialog
+        maxWidth='lg'
         fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
         onClose={handleCanceled}
         open={showModal}>

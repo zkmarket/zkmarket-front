@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Grow, Slide, Typography } from "@mui/material";
+import { Button, Card, CardContent, CardMedia, Grow, Typography } from "@mui/material";
 import { useState } from "react";
 
 const ContentThumbnail = ({ content }) => {
@@ -9,15 +9,16 @@ const ContentThumbnail = ({ content }) => {
   }
 
   return (
-    <div onClick={handleClick} style={{ cursor: content.pdfPath ? 'pointer' : 'default' }}>
-      <Card sx={{ height: 250 }}>
+    <div onClick={handleClick} style={{ cursor: 'pointer' }}>
+      <Card width='100%'>
         <CardMedia
           sx={{
             backgroundColor: '#f0f0f0',
-            height: 180,
-            width: 'auto'
+            width: '100%',
+            aspectRatio: '16/9',
+            backgroundSize: 'contain'
           }}
-          image={content.imgPath}
+          image={content.img_path}
           onMouseEnter={() => { setIsHovered(true) }}
           onMouseLeave={() => { setIsHovered(false) }}
         >
@@ -44,11 +45,25 @@ const ContentThumbnail = ({ content }) => {
             </CardContent>
           </Grow>
         </CardMedia>
-        <CardContent>
+        <CardContent
+          sx={{
+            margin: 1,
+            padding: '0 !important',
+            aspectRatio: '7/1'
+          }}>
           {content.title}
           <Typography noWrap={true} align="right" variant="h5">
-            price
+            {content.fee} wei
           </Typography>
+        </CardContent>
+        <CardContent
+          sx={{
+            margin: 1,
+            padding: '0 !important',
+          }}>
+          <Button fullWidth variant='outlined'>
+            Purchase
+          </Button>
         </CardContent>
       </Card >
     </div>
