@@ -1,12 +1,14 @@
 import FileInput from "@/components/FileInput"
 import TextArea from "@/components/TextArea"
 import { publishContent } from "@/utils/api/content"
+
 import { Card, CardContent, CardActions, Typography, Button, TextField, InputAdornment, TextareaAutosize } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const ContentPublish = ({ onPublished, onCanceled }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [author, setAuthor] = useState(undefined)
   const [date, setDate] = useState('')
   const [price, setPrice] = useState('')
   const [img, setImg] = useState({})
@@ -15,8 +17,13 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
   const handlePublish = async () => {
     console.log(pdf)
     // await publishContent(title, description, date, price, img, pdf)
+    window.location.href = 'zkmarket://' + title + '/' + description + '/' + author??'none' 
     onPublished()
   }
+
+  useEffect(() => {
+    console.log(!title || !description)
+  }, [title, description])
 
   return (
     <>
@@ -40,15 +47,25 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
-          <TextArea
-            required
-            id="descriptoion"
-            ariaLabel="Description"
-            placeholder="Description"
+          <TextField
+            fullWidth
+            id="author"
+            label="author"
             size="small"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
           />
+            <TextareaAutosize
+              required
+              fullWidth
+              minRows={7}
+              id="descriptoion"
+              ariaLabel="Description"
+              placeholder="Description"
+              size="small"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
           <TextField
             fullWidth
             id="date"
@@ -65,14 +82,14 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          <FileInput
+          {/* <FileInput
             onChange={(e) => setImg(e.target.value)}
             accept='image/*'
             label='Content Image' />
           <FileInput
             onChange={(e) => setPdf(e.target.value)}
-            accept='.pdf'
-            label='Content PDF' />
+            accept='.txt'
+            label='Content TEXT' /> */}
         </CardContent>
         <CardActions sx={{
           display: "flex",

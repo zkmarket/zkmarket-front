@@ -7,7 +7,9 @@ const FileInput = ({ label, onChange, error, accept }) => {
 
   const handleChange = (event) => {
     const files = Array.from(event.target.files);
-    const [file] = files;
+    const [file] = files;    
+    console.log(file);
+
     setAttachment(file);
     if (!!onChange) onChange({ target: { value: file } });
   };
@@ -32,6 +34,7 @@ const FileInput = ({ label, onChange, error, accept }) => {
         <input
           ref={ref}
           type="file"
+          id="ref"
           accept={accept}
           hidden
           onChange={handleChange}

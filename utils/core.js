@@ -1,4 +1,4 @@
-export const baseUrl = "http://129.154.52.100:8000/api/";
+export const baseUrl = "http://127.0.0.1:10801/";
 
 /**
  * @param {'GET' | 'POST' | 'PUT' | 'DELETE'}  [method="GET"] - method of api, default 'GET'

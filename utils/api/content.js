@@ -18,6 +18,8 @@ export const publishContent = async (title, description, date, price, img, pdf) 
   if (img) formData.set('img', img);
   if (pdf) formData.set('pdf', pdf);
 
+  console.log(formData);
+
   const result = await requestAPI(
     "POST",
     'content/publish',

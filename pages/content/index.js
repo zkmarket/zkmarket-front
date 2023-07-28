@@ -5,6 +5,8 @@ import ContentThumbnail from "@/views/content/thumbnail";
 import { getContentList } from "@/utils/api/content";
 import ContentPublish from "@/views/content/publish";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Link from "next/link";
+
 
 const Content = () => {
   const theme = useTheme();
