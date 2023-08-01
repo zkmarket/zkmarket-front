@@ -4,7 +4,11 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-      <body>
+      <body style={{
+        background: '#fafafa',
+        padding: 0,
+        margin: 0,
+      }}>
         <Main />
         <NextScript />
       </body>

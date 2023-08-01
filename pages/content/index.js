@@ -1,12 +1,12 @@
 import { Button, Card, CardContent, Dialog, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import { RefreshOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import ContentThumbnail from "@/views/content/thumbnail";
 import ContentPublish from "@/views/content/publish";
 import { getContentList } from "@/utils/content/api";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Link from "next/link";
 
+import ContentList from "@/views/content/list";
 
 const Content = () => {
   const theme = useTheme();
@@ -33,12 +33,16 @@ const Content = () => {
   const [showModal, setShowModal] = useState(false)
 
   return (
-    <>
+    <div width="100vw"
+      style={{
+        padding: 0,
+        margin: 8,
+      }}>
       <Grid
         marginBottom={1}
         container={true}
         gap={1}
-        justifyContent="flex-end"
+        justifyContent="space-between"
         alignItems="center">
         <IconButton
           color='primary'
@@ -54,45 +58,8 @@ const Content = () => {
         <Button variant='contained' onClick={() => setShowModal(true)}>
           Publish Content
         </Button>
-        {/* <Button variant='contained' onClick={() => {
-
-        }}>
-          Publish Content Test
-        </Button> */}
       </Grid >
-      {
-        contentList.length
-          ?
-          // There is(are) Content(s)
-          <Grid
-            container={true}>
-            {
-              contentList.map((content) => {
-                return (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    sx={{ padding: 1 }}
-                    key={content.id} >
-                    <ContentThumbnail content={content} />
-                  </Grid>
-                )
-              })
-            }
-          </Grid >
-          :
-          // Loading or No Contents
-          <Card variant="outlined">
-            <CardContent sx={{ padding: 1 }}>
-              <Typography align='center' variant="h5" component="div">
-                {isLoaded ? 'There is no contents' : 'Loading Contents...'}
-              </Typography>
-            </CardContent>
-          </Card>
-      }
+      <ContentList contentList={contentList} isLoaded={isLoaded} isFirstPage={true} />
       <Dialog
         maxWidth='lg'
         fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}
@@ -100,7 +67,7 @@ const Content = () => {
         open={showModal}>
         <ContentPublish onPublished={handlePublished} onCanceled={handleCanceled} />
       </Dialog>
-    </>
+    </div>
   )
 }
 
