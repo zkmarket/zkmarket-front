@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Typography } from "@mui/material";
 import ContentThumbnail from "@/views/content/thumbnail";
 import { useState } from "react";
 
-const ContentList = (contentList, isLoaded, isFirstPage = false) => {
+const ContentList = ({contentList, isLoaded, isFirstPage = false}) => {
   return (
     <>
       {
