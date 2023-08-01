@@ -2,6 +2,8 @@ import { Button, Card, CardContent, CardMedia, Grow, Typography } from "@mui/mat
 import { useState } from "react";
 import { ethers, utils } from "ethers";
 
+import _ from 'lodash'
+
 const ContentThumbnail = ({ content }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -62,13 +64,43 @@ const ContentThumbnail = ({ content }) => {
             margin: 1,
             padding: '0 !important',
           }}>
-          <Button fullWidth variant='outlined'>
+          <Button 
+            fullWidth 
+            variant='outlined'
+            onClick = {async () => {
+              purchase(content)
+            }}
+          >
             Purchase
           </Button>
         </CardContent>
       </Card >
     </div>
   )
+}
+
+
+// GenTrade     : '/genTrade/:addrDel/:addrPeer/:pkEncPeer/:hK/:feeDel/:feePeer',
+const purchase = async (content) => {
+  console.log(content, typeof(content))
+  const feeDel  = (Number(content.fee) * 0.1).toString(16)
+  const feePeer = (Number(content.fee) * 0.9).toString(16)
+
+  console.log('zkmarket://genTrade/' 
+  + _.get(content, 'addrDel') + '/' 
+  + _.get(content, 'addrPeer') + '/' 
+  + _.get(content, 'pkEnc')  + '/' 
+  + _.get(content, 'hK')     + '/'
+  + feeDel                   + '/'
+  + feePeer)
+
+  window.location.href = 'zkmarket://genTrade/' 
+    + _.get(content, 'addrDel') + '/' 
+    + _.get(content, 'addrPeer') + '/' 
+    + _.get(content, 'pkEnc')  + '/' 
+    + _.get(content, 'hK')     + '/'
+    + feeDel                   + '/'
+    + feePeer
 }
 
 export default ContentThumbnail;

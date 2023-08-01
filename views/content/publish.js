@@ -1,6 +1,6 @@
 import FileInput from "@/components/FileInput"
 import { publishContent } from "@/utils/content/api"
-import { Card, CardContent, CardActions, Typography, Button, TextField, useTheme, TextareaAutosize } from "@mui/material"
+import { Card, CardContent, CardActions, Typography, Button, TextField, useTheme, TextareaAutosize, Alert } from "@mui/material"
 import { useState, useEffect } from "react"
 import useMediaQuery from '@mui/material/useMediaQuery';
 
@@ -14,13 +14,16 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
   const [author, setAuthor] = useState(undefined)
   const [plainText, setPlainText] = useState('')
   const [date, setDate] = useState('')
-  const [fee, setFee] = useState('')
+  const [fee, setFee] = useState(undefined)
   const [img, setImg] = useState()
 
   const handlePublish = async () => {
-    console.log(pdf)
+    // console.log(pdf)
     // await publishContent(title, description, date, price, img, pdf)
-    // window.location.href = 'zkmarket://register/' + title + '/' + description + '/' + author??'none' 
+  
+    
+    console.log('gi', title, description, author, fee)
+    window.location.href = 'zkmarket://register/' + title + '/' + description + '/' + author  + '/' + fee
     // await publishContent(title, description, plainText, fee, date, img)
     onPublished()
   }
@@ -64,18 +67,18 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
-            {/* <TextareaAutosize
+            <TextareaAutosize
               required
               fullWidth
-              minRows={7}
+              minRows={12}
               id="descriptoion"
               ariaLabel="Description"
               placeholder="Description"
               size="small"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            /> */}
-          <TextField
+            />
+          {/* <TextField
             required
             fullWidth
             id="description"
@@ -83,8 +86,8 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             size="small"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-          />
-          <TextField
+          /> */}
+          {/* <TextField
             required
             id="text"
             label="Text"
@@ -101,7 +104,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
                 fontSize: 12,
               },
             }}
-          />
+          /> */}
           {/* <TextField
             fullWidth
             id="date"
@@ -114,7 +117,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
             required
             fullWidth
             id="fee"
-            label="Fee"
+            label="Fee( KLAY )"
             size="small"
             value={fee}
             onChange={(e) => setFee(e.target.value)}
@@ -133,7 +136,7 @@ const ContentPublish = ({ onPublished, onCanceled }) => {
           justifyContent: 'right'
         }}>
           <Button onClick={onCanceled} variant='outlined' color='error'>Cancel</Button>
-          <Button disabled={!title || !description || !plainText || !fee} onClick={handlePublish} variant='contained'>Publish</Button>
+          <Button disabled={!title || !description || !fee} onClick={handlePublish} variant='contained'>Publish</Button>
         </CardActions>
       </Card>
     </>
