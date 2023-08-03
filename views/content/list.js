@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Typography } from "@mui/material";
 import ContentThumbnail from "@/views/content/thumbnail";
 import { useState } from "react";
 
-const ContentList = ({contentList, isLoaded, isFirstPage = false}) => {
+const ContentList = ({contentList, isLoaded, isFirstPage = false, buttonText='Purchase', pubKey=null}) => {
   return (
     <>
       {
@@ -22,7 +22,7 @@ const ContentList = ({contentList, isLoaded, isFirstPage = false}) => {
                     lg={3}
                     sx={{ padding: 1 }}
                     key={content.id} >
-                    <ContentThumbnail content={content} />
+                    <ContentThumbnail content={content} buttonText={buttonText} pubKey={pubKey}/>
                   </Grid>
                 )
               })

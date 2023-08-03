@@ -4,20 +4,31 @@ import { useEffect, useState } from "react";
 import ContentPublish from "@/views/content/publish";
 import { getContentList } from "@/utils/content/api";
 import useMediaQuery from '@mui/material/useMediaQuery';
+
 import Link from "next/link";
+import { useParams,useSearchParams } from 'next/navigation'
 
 import ContentList from "@/views/content/list";
 
 const Content = () => {
+
+  const searchParams = useSearchParams()
+
+  let pubKey = (() => {return searchParams.get('pk')})()
+  let buttonText = pubKey ? 'View' : 'Purchase'
+  
+  console.log(pubKey, buttonText)
+
   const theme = useTheme();
   useEffect(() => {
-    refresh()
-  }, [])
+    console.log(pubKey, buttonText)
+    refresh(pubKey)
+  }, [pubKey])
 
 
-  const refresh = async () => {
+  const refresh = async (pubKey) => {
     setIsLoaded(false)
-    const result = await getContentList()
+    const result = await getContentList(pubKey)
     setContentList(result)
     setIsLoaded(true)
   }
@@ -25,7 +36,7 @@ const Content = () => {
   const handleCanceled = () => { setShowModal(false) }
   const handlePublished = async () => {
     setShowModal(false)
-    await refresh()
+    await refresh(pubKey)
   }
 
   const [contentList, setContentList] = useState([])
@@ -51,7 +62,7 @@ const Content = () => {
           style={{
             outline: 'solid 1px'
           }}
-          onClick={refresh}
+          onClick={async() => {await refresh(pubKey)}}
         >
           <RefreshOutlined />
         </IconButton>
@@ -59,7 +70,7 @@ const Content = () => {
           Publish Content
         </Button>
       </Grid >
-      <ContentList contentList={contentList} isLoaded={isLoaded} isFirstPage={true} />
+      <ContentList contentList={contentList} isLoaded={isLoaded} isFirstPage={true} buttonText={buttonText} pubKey={pubKey}/>
       <Dialog
         maxWidth='lg'
         fullScreen={useMediaQuery(theme.breakpoints.down('sm'))}

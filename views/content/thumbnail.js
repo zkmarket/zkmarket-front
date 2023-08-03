@@ -3,8 +3,14 @@ import { useState } from "react";
 import { ethers, utils } from "ethers";
 
 import _ from 'lodash'
+import Viewer from "@/pages/content/viewer";
+import { useRouter } from 'next/router'
+import { getData } from "@/utils/content/api";
 
-const ContentThumbnail = ({ content }) => {
+
+const ContentThumbnail = ({ content, buttonText='Purchase', pubKey=null}) => {
+
+  const router = useRouter()
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
@@ -68,10 +74,14 @@ const ContentThumbnail = ({ content }) => {
             fullWidth 
             variant='outlined'
             onClick = {async () => {
-              purchase(content)
+              if(buttonText === 'Purchase') { purchase(content) }
+              else if (buttonText === 'View' && pubKey) { 
+                console.log(content)
+                View(content, router, pubKey) 
+              }
             }}
           >
-            Purchase
+            {buttonText}
           </Button>
         </CardContent>
       </Card >
@@ -101,6 +111,27 @@ const purchase = async (content) => {
     + _.get(content, 'hK')     + '/'
     + feeDel                   + '/'
     + feePeer
+}
+
+const View = async (content, router, pubKey) => {
+  console.log(content, typeof(content))
+  Object.assign(content, {'pubKey' : pubKey})
+  const url = makeURL('/content/viewer', content)
+
+  router.push(url)
+}
+
+const makeURL = (base, params) => {
+  let URL = base;
+  let keys = Object.keys(params);
+  let values = keys.map((key) => params[key]);
+
+  console.log(keys, values)
+  for(let i=0 ; i<keys.length ; i++) {
+    URL += (i === 0 ? '?' : '&') + keys[i] + '=' + values[i];
+  }
+  console.log(URL)
+  return URL;
 }
 
 export default ContentThumbnail;
